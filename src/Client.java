@@ -10,6 +10,14 @@ public class Client extends Thread {
     private OutputStream os = null;
     private PrintWriter pw = null;
 
+    public static String getNomClient() {
+        return nomClient;
+    }
+
+    public static void setNomClient(String nomClient) {
+        Client.nomClient = nomClient;
+    }
+
     @Override
     public void run() {
         try {
@@ -24,30 +32,10 @@ public class Client extends Thread {
             System.out.println("le serveur dit " + receiveMessage);
         }
     } catch (Exception e) {
-        JOptionPane pane = new JOptionPane("erreur de connexion !!!!",JOptionPane.ERROR_MESSAGE);
-        pane.show();
-    }
-    }
+            JOptionPane.showMessageDialog(null,"erreur de connexion !!!! ");
 
-   /*
-    {
-        try {
-            soc = new Socket("localhost", 4201);
-            is = new InputStreamReader(soc.getInputStream());
-            bfr = new BufferedReader(is);
-            os = soc.getOutputStream();
-            pw = new PrintWriter(os, true);
-            pw.println("... Hello serveur ...");
-            while(true){
-                Thread.sleep(1000);
-                String receiveMessage = bfr.readLine();
-                System.out.println("le serveur dit " + receiveMessage);
-                }
-        } catch (Exception e) {
-            JOptionPane pane = new JOptionPane("erreur de connexion !!!!",JOptionPane.ERROR_MESSAGE);
-            pane.show();
-        }
-    }*/
+    }
+    }
 
     public void send(String sendMessage) {
         System.out.println("le message qui sera envoyé est "+sendMessage);

@@ -9,8 +9,9 @@ public class ClientSwing extends JFrame {
     String textEnvoye="";
     Boolean send= false;
     Client client = new Client();
-    public ClientSwing() {
-        super("Messenger");
+    public ClientSwing(String userName,String nomInterlocuteur) {
+        super("Messenger " +userName +" discution avec " +nomInterlocuteur);
+        this.setSize(550,480);
         client.start();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         ta = new TextArea();
@@ -19,6 +20,8 @@ public class ClientSwing extends JFrame {
         taSisir.setPreferredSize(new Dimension(0,60));
         btn = new JButton("Envoyer");
         btn.setSize(20,30);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation((screenSize.width-550)/2,(screenSize.height-480)/2);
         JPanel panelHaut = new JPanel(new BorderLayout());
         panelHaut.add(ta, BorderLayout.CENTER);
         panelHaut.setBackground(Color.orange);
@@ -29,7 +32,6 @@ public class ClientSwing extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(panelHaut, BorderLayout.CENTER);
         this.add(panelBas, BorderLayout.SOUTH);
-        this.setSize(550,480);
         this.setVisible(true);
         this.btn.addActionListener(x->{
             if(!this.taSisir.getText().isEmpty()) {
@@ -41,8 +43,10 @@ public class ClientSwing extends JFrame {
             }
         });
     }
-
+/*
     public static void main(String[] args) {
         ClientSwing cs = new ClientSwing();
     }
+
+ */
 }
