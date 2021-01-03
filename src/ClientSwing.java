@@ -9,8 +9,9 @@ public class ClientSwing extends JFrame {
     String textEnvoye="";
     Boolean send= false;
     Client client = new Client();
-    public ClientSwing()  {
-        this.setTitle("Messenger");
+    public ClientSwing() {
+        super("Messenger");
+        client.start();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         ta = new TextArea();
         ta.setForeground(Color.BLUE);
