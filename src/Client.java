@@ -26,7 +26,7 @@ public class Client extends Thread {
         bfr = new BufferedReader(is);
         os = soc.getOutputStream();
         pw = new PrintWriter(os, true);
-        pw.println("... Hello serveur ...");
+        pw.println("***... Hello serveur ...***");
         while(true){
             String receiveMessage = bfr.readLine();
             System.out.println("le serveur dit " + receiveMessage);

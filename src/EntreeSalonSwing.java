@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class EntreeSalonSwing extends JFrame {
 
@@ -11,23 +9,30 @@ public class EntreeSalonSwing extends JFrame {
     JButton btnChater;
     JButton btnBloquer;
     JLabel labelPersonnesCon;
+    String[] personne ;
+    DefaultListModel model;
     public EntreeSalonSwing(String nomUser){
         super("salon de chat");
         this.nomUser = nomUser;
         this.setSize(350,330);
         this.setPreferredSize(new Dimension(350,330));
-        this.setResizable(false);
+        this.setResizable(true);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((screenSize.width-350)/2,(screenSize.height-330)/2);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         btnChater = new JButton("Entrer");
         btnChater.setSize(20,30);
-        btnBloquer = new JButton("Quitter");
+        btnBloquer = new JButton("Bloquer");
         btnChater.setSize(20,30);
         labelPersonnesCon = new JLabel("Personnes connectées");
         labelPersonnesCon.setHorizontalAlignment(SwingConstants.CENTER);
-        String[] personne = {"Lamine", "adam","Yanis","Karim","Mouadh","Nael"};
-        jListPersonne = new JList(personne);
+
+
+        final DefaultListModel<String> model = new DefaultListModel<>();
+        jListPersonne = new JList<>(model);
+        for (int i=0;i<10;i++) {
+            model.addElement("PERSONNE " + i);
+        }
         JPanel panelHaut = new JPanel(new BorderLayout());
         panelHaut.add(labelPersonnesCon,BorderLayout.NORTH);
         panelHaut.add(jListPersonne,BorderLayout.SOUTH);
@@ -41,7 +46,10 @@ public class EntreeSalonSwing extends JFrame {
         this.add(panelBas,BorderLayout.SOUTH);
         this.setVisible(true);
         btnBloquer.addActionListener(x->{
-            this.jListPersonne.remove(jListPersonne.getSelectedIndex());
+            int index = jListPersonne.getSelectedIndex();
+            if(index>=0) {
+                model.remove(index);
+            }
         });
 
         btnChater.addActionListener(x->{

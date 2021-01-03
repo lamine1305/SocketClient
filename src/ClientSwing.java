@@ -3,14 +3,20 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 public class ClientSwing extends JFrame {
+
     JButton btn;
     TextArea ta;
     TextArea taSisir;
+
+    String demandeur;
+    String recepteur;
     String textEnvoye="";
     Boolean send= false;
     Client client = new Client();
     public ClientSwing(String userName,String nomInterlocuteur) {
         super("Messenger " +userName +" discution avec " +nomInterlocuteur);
+        this.demandeur = userName;
+        this.recepteur = nomInterlocuteur;
         this.setSize(550,480);
         client.start();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -36,8 +42,9 @@ public class ClientSwing extends JFrame {
         this.btn.addActionListener(x->{
             if(!this.taSisir.getText().isEmpty()) {
                 this.send = false;
-                this.ta.setText(this.ta.getText() + '\n' + this.taSisir.getText());
-                textEnvoye = this.taSisir.getText();
+                this.ta.setText(this.ta.getText() + '\n' +this.demandeur +" : " +this.taSisir.getText());
+                textEnvoye ="<<<"+this.demandeur +">>> , "+"<<<"+this.recepteur+">>>" +this.taSisir.getText();
+
                 client.send(textEnvoye);
                 this.taSisir.setText("");
             }
