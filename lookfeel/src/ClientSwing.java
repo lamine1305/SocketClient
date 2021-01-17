@@ -1,16 +1,11 @@
 import javax.swing.*;
 import javax.swing.border.Border;
-
-import static java.awt.Event.ENTER;
-
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class ClientSwing extends JFrame implements Runnable {
 
 	JButton btn;
-	TextArea zoneHistoriqueText;
+	TextArea ta;
 	TextArea taSisir;
 
 	String demandeur;
@@ -24,12 +19,11 @@ public class ClientSwing extends JFrame implements Runnable {
 		this.recepteur = nomInterlocuteur;
 		this.client = cl;
 		this.initView();
-		
 		this.btn.addActionListener(x->{
 			if(!this.taSisir.getText().isEmpty()) {
 				this.send = false;
-				this.zoneHistoriqueText.setText(this.zoneHistoriqueText.getText() + '\n' +this.demandeur +" : " + this.taSisir.getText());
-				textEnvoye ="<<<"+this.demandeur +">>>,<<<"+this.recepteur+">>>" + this.taSisir.getText();
+				this.ta.setText(this.ta.getText() + '\n' +this.demandeur +" : " +this.taSisir.getText());
+				textEnvoye ="<<<"+this.demandeur +">>> , "+"<<<"+this.recepteur+">>>" +this.taSisir.getText();
 
 				client.send(textEnvoye);
 				this.taSisir.setText("");
@@ -40,18 +34,18 @@ public class ClientSwing extends JFrame implements Runnable {
 	private  void initView() {
 		this.setSize(550,480);
 		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-		zoneHistoriqueText = new TextArea();
-		zoneHistoriqueText.setForeground(Color.BLUE);
+		ta = new TextArea();
+		ta.setForeground(Color.BLUE);
 		taSisir = new TextArea();
 		taSisir.setPreferredSize(new Dimension(0,60));
 		btn = new JButton("Envoyer");
 		btn.setSize(20,30);
-
+		
 		btn.setBackground(Color.orange);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation((screenSize.width-550)/2,(screenSize.height-480)/2);
 		JPanel panelHaut = new JPanel(new BorderLayout());
-		panelHaut.add(zoneHistoriqueText, BorderLayout.CENTER);
+		panelHaut.add(ta, BorderLayout.CENTER);
 		panelHaut.setBackground(Color.orange);
 		JPanel panelBas = new JPanel(new BorderLayout());
 		panelBas.setBackground(Color.red);
@@ -63,21 +57,17 @@ public class ClientSwing extends JFrame implements Runnable {
 		this.setVisible(true);
 	}
 
+
 	@Override
 	public void run() {
-		while(true) {
 		try {
 			Thread.sleep(100);
-			if((client.getReceiveMessage() != null)&&(!client.getReceiveMessage().contains("##"))&&(client.getMessageDiscution()!="-xx")) {
-				this.zoneHistoriqueText.setText(this.zoneHistoriqueText.getText() + '\n' + this.recepteur+ " :" + client.getMessageDiscution());
-				client.setMessageDiscution("-xx");
+			if(client.getReceiveMessage() != null) {
+			this.ta.setText(this.ta.getText() + '\n'+client.getReceiveMessage());
 			}
 		}catch(Exception e) {
 			System.out.println("Probleme de récupérations des messages envoyés par l'interlocuteur !!!");
 		}
-		}
-	}
 	
-	public void notifierArriveeMsg(String msg) {
 	}
 }

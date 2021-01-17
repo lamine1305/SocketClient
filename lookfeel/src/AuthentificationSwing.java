@@ -48,14 +48,13 @@ public class AuthentificationSwing extends JFrame {
         btnSortie = new JButton("Quitter");
         btnEntree.setSize(20,30);
         textIdentifiant = new JTextField();
-        textIdentifiant.setHorizontalAlignment(SwingConstants.CENTER);
         labelIdentifiant = new JLabel("Identifiant");
         labelIdentifiant.setHorizontalAlignment(SwingConstants.CENTER);
 
         JPanel panelHaut = new JPanel(new GridLayout(2,1));
         panelHaut.add(labelIdentifiant);
         panelHaut.add(textIdentifiant);
-        panelHaut.setBackground(Color.GREEN);
+        panelHaut.setBackground(Color.gray);
         JPanel panelBas = new JPanel(new BorderLayout());
         panelBas.add(btnEntree,BorderLayout.EAST);
         panelBas.add(btnSortie,BorderLayout.WEST);

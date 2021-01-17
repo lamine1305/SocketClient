@@ -45,11 +45,16 @@ public class EntreeSalonSwing extends JFrame implements Runnable {
 		btnChater.setSize(20,30);
 		btnBloquer = new JButton("Bloquer");
 		btnChater.setSize(20,30);
-		labelPersonnesCon = new JLabel("Personnes connectées");
+		labelPersonnesCon = new JLabel("Personnes connectÃ©es");
 		labelPersonnesCon.setHorizontalAlignment(SwingConstants.CENTER);
 
 		jListPersonne = new JList<>(this.model);
-	
+		/*System.out.println("----->" + client.getListClient().length);
+		for (int i=0;i<this.client.getListClient().length;i++) {
+			if(client.getListClient()[i]!=null) {
+				model.addElement(client.getListClient()[i]);
+			}
+		}*/
 		JPanel panelHaut = new JPanel(new BorderLayout());
 		panelHaut.add(labelPersonnesCon,BorderLayout.NORTH);
 		panelHaut.add(jListPersonne,BorderLayout.SOUTH);
@@ -82,7 +87,7 @@ public class EntreeSalonSwing extends JFrame implements Runnable {
 					}
 					jListPersonne.setModel(this.model);
 					jListPersonne.repaint();
-					//System.out.println("--M-->" + val );
+					System.out.println("--M-->" + val );
 				}
 
 			}
